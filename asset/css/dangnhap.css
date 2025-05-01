@@ -1,0 +1,54 @@
+body {
+    background: linear-gradient(135deg, #f8cdda, #1d2b64); /* nền gradient đẹp */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-card .title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+.btn-custom {
+    background-color: #ff6b81;
+    border: none;
+}
+
+.btn-custom:hover {
+    background-color: #ff4757;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.register-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+}
+
+.register-card .title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #343a40;
+}
