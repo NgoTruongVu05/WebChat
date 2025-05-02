@@ -1,0 +1,31 @@
+CREATE TABLE tvu_nguoiDung (
+    tenNguoiDung VARCHAR(100) PRIMARY KEY NOT NULL,
+    matKhau VARCHAR(255) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    soDienThoai VARCHAR(20) NOT NULL,
+    gioiTinh ENUM('Nam', 'Nữ', 'Khác') NOT NULL,
+    ngaySinh DATE,
+    vaiTro BOOLEAN NOT NULL,
+    trangThai BOOLEAN DEFAULT TRUE NOT NULL,
+    gioiThieu TEXT
+);
+
+CREATE TABLE tvu_banBe (
+    nguoiDung1 VARCHAR(100) NOT NULL,
+    nguoiDung2 VARCHAR(100) NOT NULL,
+    PRIMARY KEY (nguoiDung1, nguoiDung2),
+    FOREIGN KEY (nguoiDung1) REFERENCES tvu_nguoiDung(tenNguoiDung) ON DELETE CASCADE,
+    FOREIGN KEY (nguoiDung2) REFERENCES tvu_nguoiDung(tenNguoiDung) ON DELETE CASCADE
+);
+
+
+CREATE TABLE tvu_lichSu (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nguoiGui VARCHAR(100) NOT NULL,
+    nguoiNhan VARCHAR(100) NOT NULL,
+    tinNhan TEXT NOT NULL,
+    thoiGian DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (nguoiGui) REFERENCES tvu_nguoiDung(tenNguoiDung) ON DELETE CASCADE,
+    FOREIGN KEY (nguoiNhan) REFERENCES tvu_nguoiDung(tenNguoiDung) ON DELETE CASCADE
+);
+
