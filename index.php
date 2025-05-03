@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (!isset($_SESSION['tenNguoiDung'] ) || !isset($_SESSION['vaiTro']) || $_SESSION['vaiTro'] != 0) {
+    header("Location: taikhoan/dangnhap.php");
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -49,7 +58,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                                <li><a class="dropdown-item" href="taikhoan/dangxuat.php"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                             </ul>
                         </div>
                     </div>

@@ -161,3 +161,9 @@
 .childImgBlock.hidden{
     visibility: hidden;
 }
+
+
+.invalid span{
+    color: red;
+    font-weight: bold;
+}

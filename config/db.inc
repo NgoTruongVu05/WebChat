@@ -1,4 +1,7 @@
-$hostname = 'localhost'
-$username = 'root'
-$password = ''
-$dbname = 'webChat'
+<?php
+    $servername = 'localhost';
+    $username = 'root';
+    $password = '';
+    $dbname = 'webChat';
+    $time = 3600*24*7;
+?>

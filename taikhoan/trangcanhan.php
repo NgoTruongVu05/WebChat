@@ -1,3 +1,19 @@
+<?php
+session_start();
+if (!isset($_SESSION['tenNguoiDung'] ) || !isset($_SESSION['vaiTro']) || $_SESSION['vaiTro'] != 0) {
+    header("Location: dangnhap.php");
+    exit();
+}
+require_once '../config/config.php';
+require_once '../handlers/nguoiDung.php';
+
+$nguoiDung = new nguoiDung($database);
+$thongTin = $nguoiDung->layThongTinNguoiDung($_SESSION['tenNguoiDung']);
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -17,14 +33,14 @@
 
     <div class="profile-card text-center">
         <img src="https://i.pravatar.cc/150?img=5" alt="avatar" class="profile-avatar">
-        <h3>Nguyễn Văn A</h3>
+        <h3><?php echo $thongTin['tenNguoiDung']?>></h3>
         <p class="text-muted mb-4">@nguyenvana</p>
 
         <div class="text-start mb-4">
-            <p><strong>Email:</strong> nguyenvana@example.com</p>
-            <p><strong>Giới tính:</strong> Nam</p>
-            <p><strong>Ngày sinh:</strong> 01/01/2000</p>
-            <p><strong>Giới thiệu:</strong> Mình yêu thích lập trình và thích uống trà sữa 🍓🧋</p>
+            <p><strong>Email:</strong><?php echo $thongTin['email']?></p>
+            <p><strong>Giới tính:</strong><?php echo $thongTin['gioiTinh']?></p>
+            <p><strong>Ngày sinh:</strong><?php echo $thongTin['ngaySinh']?></p>
+            <p><strong>Giới thiệu:</strong><?php echo $thongTin['gioiThieu']?></p>
         </div>
 
         <a href="#" class="btn btn-edit">Chỉnh sửa</a>

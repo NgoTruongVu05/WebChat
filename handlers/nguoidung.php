@@ -8,15 +8,35 @@ class NguoiDung
         $this->database = $database;
     }
 
-    public function themNguoiDung($tenNguoiDung, $matKhau, $email, $soDienThoai, $gioiTinh, $ngaySinh, $vaiTro, $trangThai, $gioiThieu){
+    public function themNguoiDung($tenNguoiDung, $matKhau, $email, $soDienThoai, $gioiTinh, $ngaySinh, $vaiTro, $trangThai, $gioiThieu) {
+        $checkSql = "SELECT * FROM tvu_nguoidung WHERE tenNguoiDung = ? OR email = ?";
+        $checkStmt = $this->database->prepare($checkSql);
+    
+        $checkStmt->bind_param("ss", $tenNguoiDung, $email);
+        $checkStmt->execute();
+        $checkStmt->store_result();
+    
+        if ($checkStmt->num_rows > 0) {
+            return [
+                "ketQua" => false,
+                "thongBao" => "Tên người dùng hoặc email đã tồn tại."
+            ];
+        }
+    
+        $checkStmt->close();
+    
         $sql = "INSERT INTO tvu_nguoidung(tenNguoiDung, matKhau, email, soDienThoai, gioiTinh, ngaySinh, gioiThieu, vaiTro, trangThai)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->database->prepare($sql);
-        if (!$stmt) return false;
-
         $stmt->bind_param("sssssssii", $tenNguoiDung, $matKhau, $email, $soDienThoai, $gioiTinh, $ngaySinh, $gioiThieu, $vaiTro, $trangThai);
-        return $stmt->execute();
+        $stmt->execute();
+        $stmt->close();
+        return [
+            "ketQua" => true,
+            "thongBao" => "Đăng ký thành công."
+        ];
     }
+    
 
     public function suaNguoiDung($tenNguoiDung, $duLieuMoi = []) {
         $stmt = $this->database->prepare("SELECT * FROM tvu_nguoidung WHERE tenNguoiDung = ?");
@@ -60,5 +80,56 @@ class NguoiDung
 
         $stmt->bind_param("s", $tenNguoiDung);
         return $stmt->execute();
+    }
+
+    public function dangNhap($tenNguoiDung, $matKhau) {
+        $sql = "SELECT vaiTro ,trangThai, matKhau FROM tvu_nguoidung WHERE tenNguoiDung = ?";
+        $stmt = $this->database->prepare($sql);
+
+        $stmt->bind_param("s", $tenNguoiDung);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            if (password_verify($matKhau, $row['matKhau'])) {
+                if ($row['trangThai'] == 1) {
+                    return [
+                        "ketQua" => true,
+                        "thongBao" => "Đăng nhập thành công.",
+                        "vaiTro" => $row['vaiTro']
+                    ];
+                } else {
+                    return [
+                        "ketQua" => false,
+                        "thongBao" => "Tài khoản của bạn đã bị khóa."
+                    ];
+                }
+            } else {
+                return [
+                    "ketQua" => false,
+                    "thongBao" => "Mật khẩu không đúng."
+                ];
+            }
+        } else {
+            return [
+                "ketQua" => false,
+                "thongBao" => "Tên đăng nhập không tồn tại."
+            ];
+        }
+    }
+
+    public function layDanhSachNguoiDung() {
+        $sql = "SELECT * FROM tvu_nguoidung";
+        $stmt = $this->database->prepare($sql);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+    
+    public function layThongTinNguoiDung($tenNguoiDung) {
+        $sql = "SELECT * FROM tvu_nguoidung WHERE tenNguoiDung = ?";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bind_param("s", $tenNguoiDung);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
     }
 }

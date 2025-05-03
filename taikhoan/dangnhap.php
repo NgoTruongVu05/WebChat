@@ -1,3 +1,33 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    include_once "../config/config.php";
+    include_once "../handlers/nguoidung.php";
+    session_start();
+
+    $nguoiDung = new NguoiDung($database);
+    
+    $tenNguoiDung = $_POST['tenNguoiDung'] ?? '';
+    $matKhau = $_POST['matKhau'] ?? '';
+    
+    $result = $nguoiDung->dangNhap($tenNguoiDung, $matKhau);
+    
+    if ($result['ketQua'] === true && isset($result['vaiTro']) && $result['vaiTro'] == 0) {
+        $_SESSION['tenNguoiDung'] = $tenNguoiDung;
+        $_SESSION['vaiTro'] = $result['vaiTro'];
+        header("Location: ../index.php");
+        exit();
+    } else {
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                createAlert('" . addslashes($result['thongBao']) . "');
+            });
+        </script>";
+    }
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -13,10 +43,10 @@
         <div class="title">
             <i class="fas fa-seedling"></i> Dâu & Bơ - Đăng nhập
         </div>
-        <form action="" method="POST">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <div class="mb-3">
-                <label for="tenDangNhap" class="form-label">Tên đăng nhập:</label>
-                <input type="text" class="form-control" id="tenDangNhap" name="tenDangNhap">
+                <label for="tenNguoiDung" class="form-label">Tên đăng nhập:</label>
+                <input type="text" class="form-control" id="tenNguoiDung" name="tenNguoiDung">
             </div>
             <div class="mb-3">
                 <label for="matKhau" class="form-label">Mật khẩu:</label>
