@@ -8,7 +8,7 @@ class NguoiDung
         $this->database = $database;
     }
 
-    public function themNguoiDung($tenNguoiDung, $matKhau, $email, $soDienThoai, $gioiTinh, $ngaySinh, $vaiTro, $trangThai, $gioiThieu) {
+    public function themNguoiDung($tenNguoiDung, $matKhau, $email, $soDienThoai, $gioiTinh, $ngaySinh, $vaiTro, $trangThai, $gioiThieu, $tinhThanh, $quanHuyen, $xa, $duong, $anhDaiDien) {
         $checkSql = "SELECT * FROM tvu_nguoidung WHERE tenNguoiDung = ? OR email = ?";
         $checkStmt = $this->database->prepare($checkSql);
     
@@ -25,10 +25,10 @@ class NguoiDung
     
         $checkStmt->close();
     
-        $sql = "INSERT INTO tvu_nguoidung(tenNguoiDung, matKhau, email, soDienThoai, gioiTinh, ngaySinh, gioiThieu, vaiTro, trangThai)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO tvu_nguoidung(tenNguoiDung, matKhau, email, soDienThoai, gioiTinh, ngaySinh, vaiTro, trangThai, gioiThieu, tinhThanh, quanHuyen, xa, duong, anhDaiDien)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->database->prepare($sql);
-        $stmt->bind_param("sssssssii", $tenNguoiDung, $matKhau, $email, $soDienThoai, $gioiTinh, $ngaySinh, $gioiThieu, $vaiTro, $trangThai);
+        $stmt->bind_param("ssssssiisiiiss", $tenNguoiDung, $matKhau, $email, $soDienThoai, $gioiTinh, $ngaySinh, $vaiTro, $trangThai, $gioiThieu, $tinhThanh, $quanHuyen, $xa, $duong, $anhDaiDien);
         $stmt->execute();
         $stmt->close();
         return [

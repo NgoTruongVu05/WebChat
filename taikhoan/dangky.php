@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $xa = test_input($_POST['xa']);
     $duong = test_input($_POST['duong']);
 
-    $result = $nguoiDung->themNguoiDung($tenNguoiDung, password_hash($matKhau, PASSWORD_DEFAULT), $email, $soDienThoai, $gioiTinh, $ngaySinh, 0, 1, '');
+    $result = $nguoiDung->themNguoiDung($tenNguoiDung, password_hash($matKhau, PASSWORD_DEFAULT), $email, $soDienThoai, $gioiTinh, $ngaySinh, 0, 1, '' , $tinhThanh, $quanHuyen, $xa, $duong, '');
 
     if ($result['ketQua'] == true) {
         echo "<form action='dangnhap.php' method='POST' id='form-login'>
@@ -69,12 +69,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email:</label>
-                <input type="text" class="form-control" id="email" name="email" placeholder="Nhập email..." required>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Nhập email...">
                 <span class="form-message"></span>
             </div>
             <div class="mb-3">
                 <label for="soDienThoai" class="form-label">Số điện thoại:</label>
-                <input type="tel" class="form-control" id="soDienThoai" name="soDienThoai" placeholder="Nhập số điện thoại..." required>
+                <input type="tel" class="form-control" id="soDienThoai" name="soDienThoai" placeholder="Nhập số điện thoại...">
                 <span class="form-message"></span>
             </div>
             <div class="mb-3 d-flex align-items-center">
@@ -103,25 +103,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="tinhThanh" class="form-label">Địa chỉ:</label>
                 <div class="row">
                     <div class="col-md-4 mb-2">
-                        <select class="form-select" id="tinhThanh" name="tinhThanh" required>
+                        <select class="form-select" id="tinhThanh" name="tinhThanh">
                             <option value="">Chọn tỉnh thành</option>
                         </select>
                         <span class="form-message"></span>
                     </div>
                     <div class="col-md-4 mb-2">
-                        <select class="form-select" id="quanHuyen" name="quanHuyen" required>
+                        <select class="form-select" id="quanHuyen" name="quanHuyen">
                             <option value="">Chọn quận huyện</option>
                         </select>
                         <span class="form-message"></span>
                     </div>
                     <div class="col-md-4 mb-2">
-                        <select class="form-select" id="xa" name="xa" required>
+                        <select class="form-select" id="xa" name="xa">
                             <option value="">Chọn xã</option>
                         </select>
                         <span class="form-message"></span>
                     </div>
                 </div>
-                <input type="text" class="form-control" id="duong" name="duong" placeholder="Nhập tên đường..." required>
+                <input type="text" class="form-control" id="duong" name="duong" placeholder="Nhập tên đường...">
                 <span class="form-message"></span>
             </div>
 

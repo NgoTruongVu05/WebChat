@@ -55,7 +55,7 @@ body {
 /* Trang ca nhan */
 
 .profile-card {
-    max-width: 600px;
+    width: 40%;
     margin: 50px auto;
     padding: 30px;
     border-radius: 20px;

@@ -24,6 +24,7 @@ $thongTin = $nguoiDung->layThongTinNguoiDung($_SESSION['tenNguoiDung']);
     <link rel="stylesheet" href="../vender/css/bootstrap.min.css">
     <link rel="stylesheet" href="../vender/css/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../asset/css/dangnhap.css">
+    <link rel="stylesheet" href="../asset/css/function.css">
     <style>
         
     </style>
@@ -48,6 +49,7 @@ $thongTin = $nguoiDung->layThongTinNguoiDung($_SESSION['tenNguoiDung']);
     </div>
 
     <script src="../vender/js/bootstrap.bundle.min.js"></script>
+    <script src="../asset/js/function.js"></script>
 </body>
 
 </html>

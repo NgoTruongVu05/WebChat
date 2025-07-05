@@ -5,6 +5,15 @@ if (!isset($_SESSION['tenNguoiDung'] ) || !isset($_SESSION['vaiTro']) || $_SESSI
     exit();
 }
 
+if (isset($_SESSION['thongBao'])) {
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            createAlert('" . $_SESSION['thongBao'] . "');
+        });
+    </script>";
+    unset($_SESSION['thongBao']);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +26,7 @@ if (!isset($_SESSION['tenNguoiDung'] ) || !isset($_SESSION['vaiTro']) || $_SESSI
     <link rel="stylesheet" href="vender/css/bootstrap.min.css">
     <link rel="stylesheet" href="vender/css/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="asset/css/function.css">
 </head>
 
 <body>
@@ -82,6 +92,7 @@ if (!isset($_SESSION['tenNguoiDung'] ) || !isset($_SESSION['vaiTro']) || $_SESSI
 
     <script src="vender/js/bootstrap.bundle.min.js"></script>
     <script src="asset/js/chat.js"></script>
+    <script src="asset/js/function.js"></script>
 </body>
 
 </html>
